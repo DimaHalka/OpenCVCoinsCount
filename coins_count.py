@@ -9,7 +9,8 @@ for file_path in glob.glob(os.path.join('img', '*.jpg')):
     img = orig_img.copy()
     img = cv2.GaussianBlur(img, (9, 9), 5)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    _, img = cv2.threshold(img, 170, 255, cv2.THRESH_BINARY)
+    _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
     contours, _ = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     for i in range(len(contours)):
         orig_img = cv2.drawContours(orig_img, contours, i, (0, 255, 0), 3)
